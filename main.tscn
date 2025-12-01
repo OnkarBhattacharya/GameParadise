@@ -1,7 +1,0 @@
-
-[gd_scene load_steps=2 format=3 uid="uid://cgrc5bsu8a2a3"]
-
-[ext_resource type="Script" path="res://main.gd" id="1_vmp4y"]
-
-[node name="Main" type="Node"]
-script = ExtResource("1_vmp4y")

@@ -1,0 +1,20 @@
+extends Area2D
+
+var speed = 150
+var screen_size
+
+func _ready():
+  add_to_group("enemies")
+  screen_size = get_viewport_rect().size
+
+func _process(delta):
+  position.y += speed * delta
+  if position.y > screen_size.y:
+    queue_free()
+
+func _on_area_entered(area):
+  if area.is_in_group("players"):
+    queue_free()
+  if area.is_in_group("lasers"):
+    queue_free()
+    area.queue_free()

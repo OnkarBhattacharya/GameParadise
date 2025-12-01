@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://Laser.gd" id="1_tuvwx"]
+[ext_resource type="Texture2D" uid="uid://b7fui5d3sflc4" path="res://icon.svg" id="2_yzaab"]
+
+[node name="Laser" type="Area2D"]
+script = ExtResource("1_tuvwx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_yzaab")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+

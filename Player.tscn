@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgwqg5v1o0c8w"]
+
+[ext_resource type="Script" path="res://Player.gd" id="1_klmno"]
+[ext_resource type="Texture2D" uid="uid://b7fui5d3sflc4" path="res://icon.svg" id="2_pqrst"]
+
+[node name="Player" type="Area2D"]
+script = ExtResource("1_klmno")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_pqrst")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
