@@ -1,16 +1,26 @@
-# GameParadise: Space Shooter
+# GameParadise
 
-This is the first mini-game, "Space Shooter," for the GameParadise platform. It's a simple, classic arcade-style game built with the Godot Engine.
+Welcome to GameParadise, a collection of fun and engaging mini-games developed with the Godot Engine. This project serves as a central hub for various games, starting with "Space Shooter" and "Bubble Burst."
 
-## About The Project
+## Games
 
-GameParadise is envisioned as a hub for various fun, child-friendly mini-games. This Space Shooter game serves as the foundational project.
+### Space Shooter
 
-**Core Features:**
-- Player movement (Left/Right)
-- Shooting projectiles (Spacebar)
-- Spawning enemies
-- Collision detection (Player-Enemy, Laser-Enemy)
+A classic arcade-style game where you control a spaceship, shoot down enemies, and avoid collisions.
+
+**Controls:**
+
+- **Move Left**: Left Arrow Key
+- **Move Right**: Right Arrow Key
+- **Shoot**: Spacebar
+
+### Bubble Burst
+
+A simple and fun game where you pop bubbles to score points. Click on the bubbles before they disappear off the screen!
+
+**Controls:**
+
+- **Pop Bubble**: Left Mouse Click
 
 ## Getting Started
 
@@ -26,17 +36,11 @@ GameParadise is envisioned as a hub for various fun, child-friendly mini-games. 
 4.  Select the `project.godot` file.
 5.  Click "Run" (play icon) in the top-right corner of the Godot editor.
 
-## Controls
-
-- **Move Left**: Left Arrow Key
-- **Move Right**: Right Arrow Key
-- **Shoot**: Spacebar
-
 ## Project Structure
 
-- `Player/`: Contains the Player scene (`Player.tscn`) and its script (`Player.gd`).
-- `Enemy/`: Contains the Enemy scene (`Enemy.tscn`) and its script (`Enemy.gd`).
-- `Laser/`: Contains the Laser scene (`Laser.tscn`) and its script (`Laser.gd`).
-- `SpaceShooter.tscn`: The main game scene that orchestrates the game.
-- `SpaceShooter.gd`: The main script that manages enemy spawning.
+- `Lobby.tscn`: The main entry point of the application, allowing players to choose a game.
+- `games/`
+  - `space_shooter/`: Contains all the assets, scenes, and scripts for the Space Shooter game.
+  - `bubble_burst/`: Contains all the assets, scenes, and scripts for the Bubble Burst game.
+- `singletons/`: Contains the global state and event bus for the application.
 - `docs/`: Contains project documentation like the blueprint and architecture.
