@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # GameParadise
 
 Welcome to GameParadise, a collection of fun and engaging mini-games developed with the Godot Engine. This project serves as a central hub for various games, starting with "Space Shooter" and "Bubble Burst."
@@ -102,4 +101,3 @@ Contributions are welcome! If you have any ideas, suggestions, or bug reports, p
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
->>>>>>> 5e2976606e3cc9c3a6fc57dac36e9d84931a1acd
