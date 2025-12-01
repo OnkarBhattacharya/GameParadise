@@ -36,3 +36,7 @@ renderer/rendering_method="forward_plus"
 "shoot"={
 "deadzone": 0.5, "events": [ Object(InputEventKey, "keycode": 32) ]
 }
+[autoload]
+
+GlobalState="*res://common/GlobalState.gd"
+EventBus="*res://common/EventBus.gd"

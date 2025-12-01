@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3]
 
-[ext_resource type="Script" path="res://SpaceShooter.gd" id="1_abcde"]
-[ext_resource type="PackedScene" uid="uid://dgwqg5v1o0c8w" path="res://Player.tscn" id="2_fghij"]
-[ext_resource type="PackedScene" path="res://Enemy.tscn" id="3_klmno"]
+[ext_resource type="Script" path="res://games/space_shooter/SpaceShooter.gd" id="1_abcde"]
+[ext_resource type="PackedScene" uid="uid://dgwqg5v1o0c8w" path="res://games/space_shooter/scenes/Player.tscn" id="2_fghij"]
+[ext_resource type="PackedScene" path="res://games/space_shooter/scenes/Enemy.tscn" id="3_klmno"]
 
 [node name="SpaceShooter" type="Node2D"]
 script = ExtResource("1_abcde")

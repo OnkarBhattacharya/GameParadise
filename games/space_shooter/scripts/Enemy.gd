@@ -16,5 +16,7 @@ func _on_area_entered(area):
   if area.is_in_group("players"):
     queue_free()
   if area.is_in_group("lasers"):
+    GlobalState.score += 10
+    EventBus.enemy_destroyed.emit()
     queue_free()
     area.queue_free()

@@ -2,11 +2,13 @@ extends Area2D
 
 export var speed = 400
 var screen_size # Size of the game window.
-var laser_scene = preload("res://Laser.tscn")
+
+var laser_scene: PackedScene
 
 func _ready():
   add_to_group("players")
   screen_size = get_viewport_rect().size
+  laser_scene = preload("res://games/space_shooter/scenes/Laser.tscn")
 
 func _process(delta):
   var velocity = Vector2.ZERO
@@ -31,4 +33,5 @@ func shoot():
 
 func _on_area_entered(area):
   if area.is_in_group("enemies"):
+    EventBus.player_died.emit()
     queue_free()
