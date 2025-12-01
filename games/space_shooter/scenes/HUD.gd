@@ -1,4 +1,2 @@
-extends CanvasLayer
-
-func update_score():
-	$ScoreLabel.text = "Score: %s" % GlobalState.score
+# This file has been consolidated into the main HUD.gd
+# Please use games/space_shooter/HUD.gd instead

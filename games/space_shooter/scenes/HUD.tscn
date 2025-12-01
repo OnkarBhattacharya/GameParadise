@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://b5w5d6j7e8f9"]
+[gd_scene load_steps=2 format=3 uid="uid://b5w5d6j7e8ga"]
 
 [ext_resource type="Script" path="res://games/space_shooter/scenes/HUD.gd" id="1_abcde"]
 
