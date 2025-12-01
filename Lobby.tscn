@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://cgrc5bsu8a2a3"]
+[gd_scene load_steps=2 format=3 uid="uid://cgrc5bsu8a2a3"]
 
-[ext_resource type="Script" path="res://Lobby.gd" id="1_vmp4y"]
+[ext_resource type="Script" uid="uid://burkq2onf52ge" path="res://Lobby.gd" id="1_vmp4y"]
 
 [node name="Lobby" type="Control"]
 layout_mode = 3
@@ -10,42 +10,3 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_vmp4y")
-
-[node name="Title" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -48.0
-offset_top = 50.0
-offset_right = 48.0
-offset_bottom = 73.0
-grow_horizontal = 2
-text = "GameParadise"
-horizontal_alignment = 1
-
-[node name="GameGrid" type="GridContainer" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -100.0
-offset_top = -50.0
-offset_right = 100.0
-offset_bottom = 50.0
-grow_horizontal = 2
-grow_vertical = 2
-columns = 2
-
-[node name="SpaceShooterCard" type="Button" parent="GameGrid"]
-layout_mode = 2
-text = "Space Shooter"
-
-[node name="BubbleBurstCard" type="Button" parent="GameGrid"]
-layout_mode = 2
-text = "Bubble Burst"
-
-[connection signal="pressed" from="GameGrid/SpaceShooterCard" to="." method="_on_space_shooter_card_pressed"]
-[connection signal="pressed" from="GameGrid/BubbleBurstCard" to="." method="_on_bubble_burst_card_pressed"]

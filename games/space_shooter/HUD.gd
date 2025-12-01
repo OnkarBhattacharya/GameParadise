@@ -1,5 +1,6 @@
-class_name HUD
 extends CanvasLayer
+
+class_name HUD
 
 @onready var score_label: Label
 @onready var lives_label: Label

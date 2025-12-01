@@ -4,9 +4,21 @@ extends RigidBody2D
 signal goal_scored
 signal ball_saved
 
+var collision_area: Area2D
+
 func _ready() -> void:
-    # Corrected: Connect the 'body_entered' signal to the '_on_body_entered' method.
-    body_entered.connect(_on_body_entered)
+    _setup_collision_detection()
+
+func _setup_collision_detection() -> void:
+    collision_area = Area2D.new()
+    collision_area.name = "CollisionArea"
+    var collision_shape := CollisionShape2D.new()
+    var shape := CircleShape2D.new()
+    shape.radius = 16.0
+    collision_shape.shape = shape
+    collision_area.add_child(collision_shape)
+    add_child(collision_area)
+    collision_area.body_entered.connect(_on_body_entered)
 
 func _on_body_entered(body: Node) -> void:
     """Handle collisions with the goal or goalkeeper."""

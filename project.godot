@@ -19,6 +19,8 @@ config/icon="res://games/space_shooter/assets/icon.svg"
 
 GlobalState="*res://GlobalState.gd"
 EventBus="*res://EventBus.gd"
+GameConstants="*res://GameConstants.gd"
+EffectsManager="*res://EffectsManager.gd"
 
 [input]
 

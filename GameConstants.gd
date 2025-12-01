@@ -1,5 +1,6 @@
-class_name GameConstants
-extends RefCounted
+extends Node
+
+# GameConstants is now an autoload singleton
 
 enum EnemyType {
 	BASIC,

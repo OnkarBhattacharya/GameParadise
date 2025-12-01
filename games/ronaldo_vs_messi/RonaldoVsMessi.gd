@@ -20,10 +20,24 @@ const MAX_SHOTS: int = 5
 
 func _ready() -> void:
     GlobalState.reset_game_state()
+    _validate_references()
     _connect_signals()
     _update_score_display()
-    result_label.hide()
+    if result_label:
+        result_label.hide()
     _reset_round()
+
+func _validate_references() -> void:
+    if not score_label:
+        push_error("Score label not assigned in RonaldoVsMessi scene")
+    if not result_label:
+        push_error("Result label not assigned in RonaldoVsMessi scene")
+    if not player:
+        push_error("Player not assigned in RonaldoVsMessi scene")
+    if not goalkeeper:
+        push_error("Goalkeeper not assigned in RonaldoVsMessi scene")
+    if not ball:
+        push_error("Ball not assigned in RonaldoVsMessi scene")
 
 func _connect_signals() -> void:
     if not player or not ball or not goalkeeper:
@@ -41,14 +55,16 @@ func _on_player_shot_taken(_target_pos: Vector2) -> void:
 
 func _on_ball_goal_scored() -> void:
     player_score += 1
-    result_label.text = "GOAL!"
-    result_label.show()
+    if result_label:
+        result_label.text = "GOAL!"
+        result_label.show()
     _end_round()
 
 func _on_ball_saved() -> void:
     opponent_score += 1 # Conceptually, a save is a point for the opponent
-    result_label.text = "SAVED!"
-    result_label.show()
+    if result_label:
+        result_label.text = "SAVED!"
+        result_label.show()
     _end_round()
 
 func _end_round() -> void:
@@ -64,13 +80,18 @@ func _end_round() -> void:
         _reset_round()
 
 func _reset_round() -> void:
-    result_label.hide()
-    player.reset_player()
-    goalkeeper.reset_keeper()
-    ball.reset_ball(ball_start_position.global_position)
+    if result_label:
+        result_label.hide()
+    if player:
+        player.reset_player()
+    if goalkeeper:
+        goalkeeper.reset_keeper()
+    if ball and ball_start_position:
+        ball.reset_ball(ball_start_position.global_position)
 
 func _update_score_display() -> void:
-    score_label.text = "Score: %d - %d" % [player_score, opponent_score]
+    if score_label:
+        score_label.text = "Score: %d - %d" % [player_score, opponent_score]
 
 func _end_game() -> void:
     var final_text := "Final Score: %d - %d\n" % [player_score, opponent_score]
@@ -79,8 +100,10 @@ func _end_game() -> void:
     else:
         final_text += "You Lose!"
     
-    result_label.text = final_text
-    result_label.show()
+    if result_label:
+        result_label.text = final_text
+        result_label.show()
     
     # Disable further player input
-    player.can_shoot = false
+    if player:
+        player.can_shoot = false

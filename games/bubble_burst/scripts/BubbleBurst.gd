@@ -9,6 +9,8 @@ var screen_size: Vector2
 var current_spawn_rate: float
 var bubble_timer: Timer
 var ui_container: Control
+var score_label: Label
+var level_label: Label
 var time_label: Label
 var game_time: float = 60.0  # 60 seconds per level
 var remaining_time: float
@@ -27,13 +29,14 @@ func _setup_ui() -> void:
 	ui_container.name = "UI"
 	add_child(ui_container)
 	
-	var score_label := Label.new()
+	score_label = Label.new()
+	score_label.name = "ScoreLabel"
 	score_label.add_theme_font_size_override("font_size", GameConstants.FONT_SIZE_MEDIUM)
 	score_label.position = Vector2(20, 20)
 	score_label.text = "Score: 0 | High: %d" % GlobalState.high_score
 	ui_container.add_child(score_label)
 	
-	var level_label := Label.new()
+	level_label = Label.new()
 	level_label.name = "LevelLabel"
 	level_label.add_theme_font_size_override("font_size", GameConstants.FONT_SIZE_MEDIUM)
 	level_label.position = Vector2(20, 50)
@@ -41,6 +44,7 @@ func _setup_ui() -> void:
 	ui_container.add_child(level_label)
 	
 	time_label = Label.new()
+	time_label.name = "TimeLabel"
 	time_label.add_theme_font_size_override("font_size", GameConstants.FONT_SIZE_MEDIUM)
 	time_label.position = Vector2(20, 80)
 	ui_container.add_child(time_label)
@@ -116,10 +120,10 @@ func _level_complete() -> void:
 	_increase_difficulty()
 
 func _update_ui() -> void:
-	if ui_container.has_node("Label"):
-		ui_container.get_node("Label").text = "Score: %d | High: %d" % [GlobalState.score, GlobalState.high_score]
-	if ui_container.has_node("LevelLabel"):
-		ui_container.get_node("LevelLabel").text = "Level: %d" % GlobalState.level
+	if score_label:
+		score_label.text = "Score: %d | High: %d" % [GlobalState.score, GlobalState.high_score]
+	if level_label:
+		level_label.text = "Level: %d" % GlobalState.level
 
 func _on_game_state_changed(new_state: GameConstants.GameState) -> void:
 	match new_state:

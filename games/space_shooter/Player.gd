@@ -52,8 +52,9 @@ func _handle_movement(delta: float) -> void:
 	
 	velocity.x = input_vector.x * GameConstants.PLAYER_SPEED
 	
-	# Keep player within screen bounds
-	position.x = clamp(position.x, 32.0, screen_size.x - 32.0)
+	# Only clamp position when moving or near boundaries
+	if input_vector.x != 0.0 or position.x < 32.0 or position.x > screen_size.x - 32.0:
+		position.x = clamp(position.x, 32.0, screen_size.x - 32.0)
 
 func _handle_shooting(delta: float) -> void:
 	"""Handle shooting with proper debouncing."""

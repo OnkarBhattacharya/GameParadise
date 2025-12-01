@@ -115,7 +115,7 @@ func destroy() -> void:
 	
 	# Add score and emit signal
 	GlobalState.add_score(points)
-	EventBus.enemy_destroyed.emit(global_position, scale.x)
+	EventBus.enemy_destroyed.emit(enemy_type)
 
 func set_movement_pattern(pattern: Callable) -> void:
 	"""Set a custom movement pattern for this enemy."""

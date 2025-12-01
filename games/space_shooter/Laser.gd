@@ -44,8 +44,9 @@ func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("enemies"):
 		_hit_enemy(area)
 
-func _hit_enemy(enemy: Area2D) -> void:
+func _hit_enemy(enemy_area: Area2D) -> void:
 	"""Handle hitting an enemy."""
-	if enemy.has_method("take_damage"):
+	var enemy = enemy_area.get_parent()
+	if enemy and enemy.has_method("take_damage"):
 		enemy.take_damage(1)
 	queue_free()
