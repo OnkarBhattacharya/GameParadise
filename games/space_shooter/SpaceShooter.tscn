@@ -15,4 +15,13 @@ position = Vector2(576, 500)
 wait_time = 0.5
 autostart = true
 
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 120.0
+offset_bottom = 50.0
+text = "Back to Menu"
+
 [connection signal="timeout" from="EnemyTimer" to="." method="_on_EnemyTimer_timeout"]
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

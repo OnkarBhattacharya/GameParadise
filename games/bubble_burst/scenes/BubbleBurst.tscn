@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://games/bubble_burst/scripts/BubbleBurst.gd" id="1_fghij"]
+
+[node name="BubbleBurst" type="Node2D"]
+script = ExtResource("1_fghij")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+text = "Bubble Burst is under construction. Coming soon!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 120.0
+offset_bottom = 50.0
+text = "Back to Menu"
+
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

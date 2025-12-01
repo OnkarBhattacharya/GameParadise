@@ -13,3 +13,6 @@ func _on_EnemyTimer_timeout():
 
 func _on_enemy_destroyed():
   print("Enemy destroyed! Score: ", GlobalState.score)
+
+func _on_back_button_pressed():
+  get_tree().change_scene_to_file("res://Lobby.tscn")
