@@ -43,6 +43,5 @@ A simple and fun game where you pop bubbles to score points. Click on the bubble
 - `EventBus.gd`: A global event bus for communication between different parts of the application (autoloaded singleton).
 - `GlobalState.gd`: A global state manager for storing data like score (autoloaded singleton).
 - `games/`
-  - `space_shooter/`: Contains all the assets, scenes, and scripts for the Space Shooter game.
-  - `bubble_burst/`: Contains all the assets, scenes, and scripts for the Bubble Burst game.
-- `docs/`: Contains project documentation like the blueprint and architecture.
+  - `space_shooter/`: Contains all the scenes, and scripts for the Space Shooter game.
+  - `bubble_burst/`: Contains all the scenes, and scripts for the Bubble Burst game.
