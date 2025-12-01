@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5w5d6j7e8f9"]
+
+[ext_resource type="Script" path="res://games/space_shooter/scenes/HUD.gd" id="1_abcde"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_abcde")
+
+[node name="ScoreLabel" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+text = "Score: 0"
+horizontal_alignment = 1

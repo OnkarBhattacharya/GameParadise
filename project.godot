@@ -38,5 +38,5 @@ renderer/rendering_method="forward_plus"
 }
 [autoload]
 
-GlobalState="*res://common/GlobalState.gd"
-EventBus="*res://common/EventBus.gd"
+GlobalState="*res://GlobalState.gd"
+EventBus="*res://EventBus.gd"

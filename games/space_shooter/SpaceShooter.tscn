@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://games/space_shooter/SpaceShooter.gd" id="1_abcde"]
 [ext_resource type="PackedScene" uid="uid://dgwqg5v1o0c8w" path="res://games/space_shooter/scenes/Player.tscn" id="2_fghij"]
 [ext_resource type="PackedScene" path="res://games/space_shooter/scenes/Enemy.tscn" id="3_klmno"]
+[ext_resource type="PackedScene" uid="uid://b5w5d6j7e8f9" path="res://games/space_shooter/scenes/HUD.tscn" id="4_pqrst"]
 
 [node name="SpaceShooter" type="Node2D"]
 script = ExtResource("1_abcde")
@@ -10,6 +11,8 @@ enemy_scene = ExtResource("3_klmno")
 
 [node name="Player" parent="." instance=ExtResource("2_fghij")]
 position = Vector2(576, 500)
+
+[node name="HUD" parent="." instance=ExtResource("4_pqrst")]
 
 [node name="EnemyTimer" type="Timer" parent="."]
 wait_time = 0.5
