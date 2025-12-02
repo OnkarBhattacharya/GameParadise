@@ -1,8 +1,6 @@
 class_name BubbleBurst
 extends Node2D
 
-@export var bubble_scene: PackedScene
-
 var bubbles_popped: int = 0
 var bubbles_missed: int = 0
 var screen_size: Vector2
@@ -90,14 +88,7 @@ func _spawn_bubble() -> void:
 	if current_bubbles.size() >= GameConstants.MAX_BUBBLES:
 		return
 	
-	if not bubble_scene:
-		bubble_scene = preload("res://games/bubble_burst/scenes/Bubble.tscn")
-	
-	if not bubble_scene:
-		push_error("Bubble scene not found")
-		return
-	
-	var bubble: Bubble = bubble_scene.instantiate()
+	var bubble: Bubble = Bubble.new()
 	if not bubble:
 		push_error("Failed to instantiate bubble")
 		return

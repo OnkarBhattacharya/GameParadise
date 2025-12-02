@@ -1,7 +1,6 @@
 extends Node2D
 
 @export var enemy_scene: PackedScene
-@export var player_scene: PackedScene
 @export var hud_scene: PackedScene
 
 var screen_size: Vector2
@@ -21,14 +20,9 @@ func _ready() -> void:
 	_setup_timers()
 	_connect_signals()
 
-## Sets up player and adds to scene.
+## Sets up player reference.
 func _setup_player() -> void:
-	if not player_scene:
-		player_scene = preload("res://games/space_shooter/scenes/Player.tscn")
-	
-	player = player_scene.instantiate()
-	player.position = Vector2(screen_size.x / 2, screen_size.y - 100)
-	add_child(player)
+	player = $Player
 
 ## Sets up HUD and adds to scene.
 func _setup_hud() -> void:
@@ -62,10 +56,7 @@ func _spawn_enemy() -> void:
 	if enemy_count >= GameConstants.MAX_ENEMIES:
 		return
 	
-	if not enemy_scene:
-		enemy_scene = preload("res://games/space_shooter/scenes/Enemy.tscn")
-	
-	var enemy: Enemy = enemy_scene.instantiate()
+	var enemy: Enemy = Enemy.new()
 	if not enemy:
 		push_error("Failed to instantiate enemy")
 		return
