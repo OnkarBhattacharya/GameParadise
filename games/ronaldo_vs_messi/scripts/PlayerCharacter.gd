@@ -30,11 +30,13 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept"):
 		shoot()
 
+## Updates aiming sprite to follow mouse.
 func _update_aim_target() -> void:
 	"""Updates the position of the aiming sprite to follow the mouse."""
 	aim_target_sprite.show()
 	aim_target_sprite.global_position = get_global_mouse_position()
 
+## Shoots ball towards aim target.
 func shoot() -> void:
 	"""Handles the logic for shooting the ball towards the aim target."""
 	if not ball:
@@ -51,6 +53,7 @@ func shoot() -> void:
 	ball.shoot(shot_direction, shot_power)
 	shot_taken.emit(shot_target_pos)
 
+## Resets player state for next shot.
 func reset_player() -> void:
 	"""Resets the player's state to allow another shot."""
 	can_shoot = true

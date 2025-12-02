@@ -9,6 +9,7 @@ var collision_area: Area2D
 func _ready() -> void:
     _setup_collision_detection()
 
+## Sets up collision detection.
 func _setup_collision_detection() -> void:
     collision_area = Area2D.new()
     collision_area.name = "CollisionArea"
@@ -20,6 +21,7 @@ func _setup_collision_detection() -> void:
     add_child(collision_area)
     collision_area.body_entered.connect(_on_body_entered)
 
+## Handles collisions with goal or goalkeeper.
 func _on_body_entered(body: Node) -> void:
     """Handle collisions with the goal or goalkeeper."""
     if body.is_in_group("goal"):
@@ -31,12 +33,14 @@ func _on_body_entered(body: Node) -> void:
         ball_saved.emit()
         print("Saved by the keeper!")
 
+## Applies impulse to ball to simulate shot.
 func shoot(direction: Vector2, force: float) -> void:
     """Applies an impulse to the ball to simulate a shot."""
     # Ensure the ball is active to be able to move
     sleeping = false
     apply_central_impulse(direction.normalized() * force)
 
+## Resets ball to starting position and state.
 func reset_ball(start_position: Vector2) -> void:
     """Resets the ball to its starting position and state."""
     sleeping = true

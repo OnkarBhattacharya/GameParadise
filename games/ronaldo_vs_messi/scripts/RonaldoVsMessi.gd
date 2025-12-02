@@ -19,39 +19,50 @@ var shots_taken: int = 0
 const MAX_SHOTS: int = 5
 
 func _ready() -> void:
-    GlobalState.reset_game_state()
     _validate_references()
     _connect_signals()
-    _update_score_display()
-    if result_label:
-        result_label.hide()
     _reset_round()
+    _update_score_display()
+    result_label.hide()
 
+## Validates all required references are assigned.
 func _validate_references() -> void:
-    if not score_label:
-        push_error("Score label not assigned in RonaldoVsMessi scene")
-    if not result_label:
-        push_error("Result label not assigned in RonaldoVsMessi scene")
-    if not player:
-        push_error("Player not assigned in RonaldoVsMessi scene")
-    if not goalkeeper:
-        push_error("Goalkeeper not assigned in RonaldoVsMessi scene")
-    if not ball:
-        push_error("Ball not assigned in RonaldoVsMessi scene")
-
-func _connect_signals() -> void:
-    if not player or not ball or not goalkeeper:
-        push_error("Required nodes are not assigned in RonaldoVsMessi script!")
-        return
+    var all_valid = true
     
+    if not score_label:
+        push_error("Score label not assigned")
+        all_valid = false
+    if not result_label:
+        push_error("Result label not assigned")
+        all_valid = false
+    if not player:
+        push_error("Player not assigned")
+        all_valid = false
+    if not goalkeeper:
+        push_error("Goalkeeper not assigned")
+        all_valid = false
+    if not ball:
+        push_error("Ball not assigned")
+        all_valid = false
+    if not ball_start_position:
+        push_error("Ball start position not assigned")
+        all_valid = false
+    
+    if not all_valid:
+        set_process(false)
+        return
+
+## Connects to game signals.
+func _connect_signals() -> void:
+    # Validation is now in _ready, so we can safely connect.
     player.shot_taken.connect(_on_player_shot_taken)
     ball.goal_scored.connect(_on_ball_goal_scored)
     ball.ball_saved.connect(_on_ball_saved)
 
-func _on_player_shot_taken(_target_pos: Vector2) -> void:
+func _on_player_shot_taken(target_pos: Vector2) -> void:
     # FIX: Use the target_pos variable to make the goalkeeper react to the shot.
     if goalkeeper:
-        goalkeeper.react_to_shot(_target_pos)
+        goalkeeper.react_to_shot(target_pos)
 
 func _on_ball_goal_scored() -> void:
     player_score += 1
@@ -79,6 +90,7 @@ func _end_round() -> void:
     else:
         _reset_round()
 
+## Resets round for next shot.
 func _reset_round() -> void:
     if result_label:
         result_label.hide()
@@ -89,10 +101,12 @@ func _reset_round() -> void:
     if ball and ball_start_position:
         ball.reset_ball(ball_start_position.global_position)
 
+## Updates score display.
 func _update_score_display() -> void:
     if score_label:
         score_label.text = "Score: %d - %d" % [player_score, opponent_score]
 
+## Ends game and shows final score.
 func _end_game() -> void:
     var final_text := "Final Score: %d - %d\n" % [player_score, opponent_score]
     if player_score > opponent_score:

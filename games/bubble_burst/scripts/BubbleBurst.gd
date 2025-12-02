@@ -14,6 +14,8 @@ var level_label: Label
 var time_label: Label
 var game_time: float = 60.0  # 60 seconds per level
 var remaining_time: float
+var bubbles_popped_this_level: int = 0
+var bubbles_to_pop_per_level: int = 10
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
@@ -24,6 +26,7 @@ func _ready() -> void:
 	_setup_timers()
 	_connect_signals()
 
+## Sets up UI labels.
 func _setup_ui() -> void:
 	ui_container = Control.new()
 	ui_container.name = "UI"
@@ -49,6 +52,7 @@ func _setup_ui() -> void:
 	time_label.position = Vector2(20, 80)
 	ui_container.add_child(time_label)
 
+## Sets up bubble spawn timer.
 func _setup_timers() -> void:
 	bubble_timer = Timer.new()
 	bubble_timer.wait_time = current_spawn_rate
@@ -56,6 +60,7 @@ func _setup_timers() -> void:
 	add_child(bubble_timer)
 	bubble_timer.start()
 
+## Connects to event bus signals.
 func _connect_signals() -> void:
 	EventBus.bubble_popped.connect(_on_bubble_popped)
 	EventBus.bubble_missed.connect(_on_bubble_missed)
@@ -76,6 +81,7 @@ func _input(event: InputEvent) -> void:
 		else:
 			_go_back_to_lobby()
 
+## Spawns bubble at random position.
 func _spawn_bubble() -> void:
 	if GlobalState.current_game_state != GameConstants.GameState.PLAYING:
 		return
@@ -85,11 +91,15 @@ func _spawn_bubble() -> void:
 		return
 	
 	if not bubble_scene:
-		push_error("Bubble scene not assigned")
+		bubble_scene = preload("res://games/bubble_burst/scenes/Bubble.tscn")
+	
+	if not bubble_scene:
+		push_error("Bubble scene not found")
 		return
 	
 	var bubble: Bubble = bubble_scene.instantiate()
 	if not bubble:
+		push_error("Failed to instantiate bubble")
 		return
 	
 	bubble.position = Vector2(randf_range(50, screen_size.x - 50), screen_size.y + 50)
@@ -97,16 +107,21 @@ func _spawn_bubble() -> void:
 	bubble.despawn_time = max(3.0, GameConstants.BUBBLE_DESPAWN_TIME - GlobalState.level * 0.5)
 	add_child(bubble)
 
-func _on_bubble_popped(points: int) -> void:
+func _on_bubble_popped() -> void:
 	bubbles_popped += 1
+	bubbles_popped_this_level += 1
 	_update_ui()
 	
 	if bubbles_popped % 15 == 0:
 		_increase_difficulty()
+	
+	if bubbles_popped_this_level >= bubbles_to_pop_per_level:
+		_level_complete()
 
 func _on_bubble_missed() -> void:
 	bubbles_missed += 1
 
+## Increases level and spawn rate.
 func _increase_difficulty() -> void:
 	GlobalState.level += 1
 	current_spawn_rate = max(GameConstants.BUBBLE_MIN_SPAWN_RATE, current_spawn_rate - 0.1)
@@ -114,11 +129,30 @@ func _increase_difficulty() -> void:
 	EventBus.level_changed.emit(GlobalState.level)
 	_update_ui()
 
+## Handles level completion.
 func _level_complete() -> void:
-	remaining_time = game_time
-	GlobalState.add_score(int(remaining_time * 2))  # Bonus for remaining time
-	_increase_difficulty()
+	# Show a message or effect
+	var level_complete_label = get_node_or_null("LevelCompleteLabel") # Assuming you have a label
+	if level_complete_label:
+		level_complete_label.text = "Level %d Complete!" % GlobalState.level
+		level_complete_label.show()
 
+	# Pause bubble spawning briefly
+	bubble_timer.stop()
+	
+	# Wait for a moment before starting the next level
+	await get_tree().create_timer(2.0).timeout
+	
+	if level_complete_label:
+		level_complete_label.hide()
+		
+	# Reset counter and increase difficulty for the next level
+	bubbles_popped_this_level = 0
+	bubbles_to_pop_per_level = int(bubbles_to_pop_per_level * 1.2) # Increase bubbles needed for next level
+	_increase_difficulty()
+	bubble_timer.start()
+
+## Updates UI display.
 func _update_ui() -> void:
 	if score_label:
 		score_label.text = "Score: %d | High: %d" % [GlobalState.score, GlobalState.high_score]
@@ -132,5 +166,6 @@ func _on_game_state_changed(new_state: GameConstants.GameState) -> void:
 		GameConstants.GameState.PLAYING:
 			bubble_timer.paused = false
 
+## Returns to main lobby.
 func _go_back_to_lobby() -> void:
 	get_tree().change_scene_to_file("res://Lobby.tscn")

@@ -1,5 +1,5 @@
 class_name Bubble
-extends RigidBody2D
+extends Area2D
 
 @export var despawn_time: float = GameConstants.BUBBLE_DESPAWN_TIME
 
@@ -16,23 +16,33 @@ func _ready() -> void:
 	_setup_click_detection()
 	_setup_visuals()
 
+## Sets up physics properties.
 func _setup_physics() -> void:
-	gravity_scale = 0.1  # Slight gravity for more natural movement
-	linear_damp = 0.2
+	# Area2D doesn't have physics properties in Godot 4.x
+	pass
 
+## Sets up click detection area.
 func _setup_click_detection() -> void:
 	click_area = Area2D.new()
 	click_area.name = "ClickArea"
 	var collision_shape := CollisionShape2D.new()
 	var shape := CircleShape2D.new()
-	shape.radius = 32.0  # Adjust based on bubble size
+	shape.radius = GameConstants.BUBBLE_CLICK_RADIUS
 	collision_shape.shape = shape
 	click_area.add_child(collision_shape)
 	add_child(click_area)
 	click_area.input_event.connect(_on_input_event)
 
+## Sets up visual appearance and animation.
 func _setup_visuals() -> void:
 	modulate = Color.from_hsv(randf_range(0, 1), 0.7, 1.0)
+	
+	var sprite = ColorRect.new()
+	sprite.size = GameConstants.BUBBLE_SPRITE_SIZE
+	sprite.position = GameConstants.BUBBLE_SPRITE_SIZE / -2.0
+	sprite.color = modulate
+	add_child(sprite)
+	
 	# Add subtle pulsing animation
 	var tween := create_tween()
 	tween.set_loops()
@@ -64,6 +74,7 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		pop()
 
+## Pops bubble with animation and scoring.
 func pop() -> void:
 	if is_popped:
 		return
@@ -85,6 +96,7 @@ func pop() -> void:
 	GlobalState.add_score(total_points)
 	EventBus.bubble_popped.emit(total_points)
 
+## Despawns bubble when time expires.
 func despawn() -> void:
 	if is_popped:
 		return

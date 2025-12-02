@@ -3,18 +3,15 @@ extends Control
 const GAME_CARDS_DATA = [
 	{
 		"title": "Space Shooter",
-		"image": "res://games/space_shooter/assets/icon.svg",
-		"scene_path": "res://games/space_shooter/SpaceShooter.tscn"
+		"scene_path": "res://games/space_shooter/scenes/SpaceShooter.tscn"
 	},
 	{
 		"title": "Bubble Burst",
-		"image": "res://games/bubble_burst/assets/bubble.png",
 		"scene_path": "res://games/bubble_burst/scenes/BubbleBurst.tscn"
 	},
 	{
 		"title": "Ronaldo vs Messi",
-		"image": "res://games/ronaldo_vs_messi/assets/ball.png",
-		"scene_path": "res://games/ronaldo_vs_messi/RonaldoVsMessi.tscn"
+		"scene_path": "res://games/ronaldo_vs_messi/scenes/RonaldoVsMessi.tscn"
 	}
 ]
 
@@ -52,10 +49,10 @@ func _create_lobby_ui() -> void:
 	
 	# Create a card for each game
 	for game_data in GAME_CARDS_DATA:
-		var card = _create_game_card(game_data.title, game_data.image, game_data.scene_path)
+		var card = _create_game_card(game_data.title, game_data.scene_path)
 		cards_hbox.add_child(card)
 
-func _create_game_card(title: String, image_path: String, scene_path: String) -> PanelContainer:
+func _create_game_card(title: String, scene_path: String) -> PanelContainer:
 	# Card container
 	var card = PanelContainer.new()
 	card.custom_minimum_size = Vector2(250, 300)
@@ -74,10 +71,7 @@ func _create_game_card(title: String, image_path: String, scene_path: String) ->
 
 	# Game Image
 	var texture_rect = TextureRect.new()
-	var texture = load(image_path)
-	if not texture:
-		texture = load("res://icon.svg")  # Fallback to default icon
-		push_warning("Could not load image: %s, using fallback" % image_path)
+	var texture = load("res://icon.svg")
 	texture_rect.texture = texture
 	texture_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	texture_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED

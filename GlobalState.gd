@@ -19,8 +19,8 @@ func _ready() -> void:
 	EventBus.game_paused.connect(_on_game_paused)
 	EventBus.game_resumed.connect(_on_game_resumed)
 
+## Resets all game state variables to initial values.
 func reset_game_state() -> void:
-	"""Reset all game state variables to initial values."""
 	if score > high_score:
 		high_score = score
 		_save_high_score()
@@ -30,8 +30,8 @@ func reset_game_state() -> void:
 	lives = GameConstants.INITIAL_LIVES
 	set_game_state(GameConstants.GameState.MENU)
 
+## Adds points to the current score with validation.
 func add_score(points: int) -> void:
-	"""Add points to the current score with validation."""
 	if points < 0:
 		push_warning("Attempted to add negative score: %d" % points)
 		return
@@ -39,14 +39,14 @@ func add_score(points: int) -> void:
 	score += points
 	EventBus.score_updated.emit(score)
 
+## Changes the current game state and emits signal.
 func set_game_state(new_state: GameConstants.GameState) -> void:
-	"""Change the current game state and emit signal."""
 	if current_game_state != new_state:
 		current_game_state = new_state
 		EventBus.game_state_changed.emit(new_state)
 
+## Toggles pause state and emits appropriate signals.
 func toggle_pause() -> void:
-	"""Toggle pause state and emit appropriate signals."""
 	if current_game_state != GameConstants.GameState.PLAYING:
 		return
 	

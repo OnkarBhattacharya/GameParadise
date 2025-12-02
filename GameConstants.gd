@@ -43,3 +43,13 @@ const MAX_BUBBLES: int = 8
 const FONT_SIZE_LARGE: int = 24
 const FONT_SIZE_MEDIUM: int = 20
 const FONT_SIZE_SMALL: int = 16
+
+# Collision Sizes
+const PLAYER_COLLISION_SIZE: Vector2 = Vector2(40, 40)
+const PLAYER_COLLISION_LAYER: int = 0
+const PLAYER_COLLISION_MASK: int = 2
+const LASER_COLLISION_SIZE: Vector2 = Vector2(4, 16)
+const ENEMY_COLLISION_SIZE: Vector2 = Vector2(32, 32)
+const HEAVY_ENEMY_SCALE: Vector2 = Vector2(1.3, 1.3)
+const BUBBLE_CLICK_RADIUS: float = 32.0
+const BUBBLE_SPRITE_SIZE: Vector2 = Vector2(64, 64)

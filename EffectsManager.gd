@@ -2,6 +2,7 @@ extends Node2D
 
 # EffectsManager is now an autoload singleton
 
+## Creates explosion effect at position with optional color.
 func create_explosion(pos: Vector2, color: Color = Color.WHITE) -> void:
 	var particles := CPUParticles2D.new()
 	particles.position = pos
@@ -23,6 +24,7 @@ func create_explosion(pos: Vector2, color: Color = Color.WHITE) -> void:
 	if is_instance_valid(particles):
 		particles.queue_free()
 
+## Shakes camera for specified duration and strength.
 func screen_shake(duration: float = 0.3, strength: float = 10.0) -> void:
 	var camera := get_viewport().get_camera_2d()
 	if not camera:

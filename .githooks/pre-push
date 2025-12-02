@@ -1,0 +1,17 @@
+#!/bin/bash
+# Pre-push hook: Verify documentation is up-to-date before pushing
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+PYTHON_SCRIPT="$SCRIPT_DIR/update_docs.py"
+
+if [ -f "$PYTHON_SCRIPT" ]; then
+    python3 "$PYTHON_SCRIPT" "$SCRIPT_DIR"
+    
+    # Check if docs were modified
+    if ! git diff --quiet QUICK_REFERENCE.md ARCHITECTURE.md FIXES_NEEDED.md CHANGELOG.md 2>/dev/null; then
+        echo "⚠️  Documentation was updated. Please commit changes before pushing."
+        exit 1
+    fi
+fi
+
+exit 0

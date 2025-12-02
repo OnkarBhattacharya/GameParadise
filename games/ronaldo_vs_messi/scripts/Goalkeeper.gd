@@ -10,6 +10,7 @@ func _ready() -> void:
     add_to_group("goalkeeper")
     start_position = global_position
 
+## Reacts to player shot by diving towards target.
 func react_to_shot(shot_target_pos: Vector2) -> void:
     """React to the player's shot by diving towards a predicted point."""
     if is_diving:
@@ -31,6 +32,7 @@ func react_to_shot(shot_target_pos: Vector2) -> void:
 func _physics_process(_delta: float) -> void:
     move_and_slide()
 
+## Resets goalkeeper to starting position.
 func reset_keeper() -> void:
     """Reset the goalkeeper to its starting position."""
     global_position = start_position
