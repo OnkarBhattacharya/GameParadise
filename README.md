@@ -31,17 +31,39 @@ To get the project running on your local machine, follow these simple steps:
 ## 📂 Project Structure
 
 The project is organized to be modular and easy to navigate, with a clear separation between core systems and individual games.
+GameParadise/
 ├── games/
-│   ├── bubble_burst/       # Bubble Burst game assets and scenes
-│   ├── ronaldo_vs_messi/   # Ronaldo vs Messi game assets and scenes
-│   └── space_shooter/      # Space Shooter game assets and scenes
-├── EffectsManager.gd       # Manages visual effects like explosions
-├── EventBus.gd             # Global event bus for signal-based communication
-├── GameConstants.gd        # Centralized constants (speeds, rates, etc.)
-├── GlobalState.gd          # Manages global state (score, lives, pause)
-├── Lobby.tscn              # Main game selection lobby scene
-├── project.godot           # The main Godot project file
-└── README.md               # Project documentation
+│   ├── bubble_burst/           # Bubble Burst game
+│   │   ├── scripts/
+│   │   │   ├── BubbleBurst.gd
+│   │   │   └── Bubble.gd
+│   │   ├── scenes/
+│   │   └── assets/
+│   ├── ronaldo_vs_messi/       # Ronaldo vs Messi game
+│   │   ├── scripts/
+│   │   │   ├── RonaldoVsMessi.gd
+│   │   │   ├── PlayerCharacter.gd
+│   │   │   ├── GoalkeeperAI.gd
+│   │   │   └── Ball.gd
+│   │   ├── scenes/
+│   │   └── assets/
+│   └── space_shooter/          # Space Shooter game
+│       ├── scripts/
+│       │   ├── SpaceShooter.gd
+│       │   ├── Player.gd
+│       │   ├── Enemy.gd
+│       │   ├── Laser.gd
+│       │   └── HUD.gd
+│       ├── scenes/
+│       └── assets/
+├── EffectsManager.gd           # Manages visual effects
+├── EventBus.gd                 # Global event bus
+├── GameConstants.gd            # Centralized constants
+├── GlobalState.gd              # Global game state
+├── Lobby.gd                    # Lobby controller
+├── Lobby.tscn                  # Main lobby scene
+├── project.godot               # Godot project file
+└── README.md                   # This file
 
 
 ### Core Systems (Autoloaded Singletons)
